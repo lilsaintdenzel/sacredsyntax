@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Theology - A Collection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0f0f1e;
+            font-family: 'Courier New', monospace;
+            color: #e8e8e8;
+            overflow-x: hidden;
+            min-height: 100vh;
+            padding: 40px 20px;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,.02) 2px, rgba(255,255,255,.02) 4px),
+                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,.02) 2px, rgba(255,255,255,.02) 4px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.15;
+            z-index: 1;
+            mix-blend-mode: overlay;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='4' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 80px;
+            opacity: 0;
+            animation: fadeInDown 1.5s ease forwards;
+        }
+
+        .main-title {
+            font-size: 4.5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffd700, #f0e68c, #daa520);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .main-subtitle {
+            font-size: 1.3rem;
+            color: #b8b8b8;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .writings-grid {
+            display: flex;
+            justify-content: center;
+            margin-top: 60px;
+            min-height: 500px;
+        }
+
+        .writing-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 35px;
+            transition: all 0.4s ease;
+            opacity: 0;
+            animation: slideUp 0.8s ease forwards;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            position: relative;
+            overflow: hidden;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .writing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .writing-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .writing-card:nth-child(1) { 
+            animation-delay: 0.3s;
+            --accent-color: #c9b9a0;
+        }
+        .writing-card:nth-child(2) { 
+            animation-delay: 0.5s;
+            --accent-color: #d4af37;
+        }
+        .writing-card:nth-child(3) { 
+            animation-delay: 0.7s;
+            --accent-color: #ffd700;
+        }
+
+        .writing-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-scripture {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        .card-subtitle {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+
+        .card-excerpt {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #b8b8b8;
+            margin-bottom: 25px;
+        }
+
+        .card-link {
+            display: inline-block;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .writing-card:hover .card-link {
+            border-color: var(--accent-color);
+        }
+
+        .divider {
+            width: 60px;
+            height: 2px;
+            background: var(--accent-color);
+            margin: 15px 0;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-title { font-size: 2.5rem; }
+            .main-subtitle { font-size: 1rem; }
+            .writings-grid { 
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            .card-title { font-size: 1.6rem; }
+            .card-subtitle { font-size: 1.1rem; }
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin-top: 60px;
+            opacity: 0;
+            animation: fadeIn 1.5s ease forwards 1.2s;
+        }
+
+        .page-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffd700;
+            padding: 12px 30px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .page-btn:hover:not(:disabled) {
+            background: rgba(255, 215, 0, 0.1);
+            border-color: #ffd700;
+            transform: translateY(-2px);
+        }
+
+        .page-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .page-indicator {
+            color: #b8b8b8;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .page-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            margin: 0 5px;
+            transition: all 0.3s ease;
+        }
+
+        .page-dot.active {
+            background: #ffd700;
+            transform: scale(1.3);
+        }
+
+        .writing-card.hidden {
+            display: none;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 100px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #666;
+            font-size: 0.85rem;
+            opacity: 0;
+            animation: fadeIn 2s ease forwards 1s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="grain"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1 class="main-title">visual theology</h1>
+            <p class="main-subtitle">Meditations on sacred truth</p>
+        </div>
+
+        <div class="writings-grid">
+            <a href="gethsemane.html" class="writing-card" data-page="0">
+                <div class="card-scripture">Matthew 26:36-46</div>
+                <h2 class="card-title">gethsemane</h2>
+                <h3 class="card-subtitle">the garden of surrender</h3>
+                <div class="divider"></div>
+                <p class="card-excerpt">
+                    Where anguish met obedience. A garden on the Mount of Olives where olives were crushed to extract oil. Where pressure revealed what was inside. Where the weight became real.
+                </p>
+                <span class="card-link">Read more →</span>
+            </a>
+
+            <a href="royal_diadem.html" class="writing-card hidden" data-page="1">
+                <div class="card-scripture">Revelation 19:12</div>
+                <h2 class="card-title">royal diadem</h2>
+                <h3 class="card-subtitle">the crown of paradox</h3>
+                <div class="divider"></div>
+                <p class="card-excerpt">
+                    Where thorns became glory. The King who wore our curse as his crown. Real kingship doesn't crush its enemies—it dies for them. Every knee will bow to the one who wore the crown of thorns.
+                </p>
+                <span class="card-link">Read more →</span>
+            </a>
+
+            <a href="crown_of_splendor.html" class="writing-card hidden" data-page="2">
+                <div class="card-scripture">Isaiah 62:3</div>
+                <h2 class="card-title">crown of splendor</h2>
+                <h3 class="card-subtitle">held in the hand of God</h3>
+                <div class="divider"></div>
+                <p class="card-excerpt">
+                    You are treasured by God. Held by God. Displayed by God. Not a crown on his head—a crown in his hand. You are the craftsmanship he displays. The glory he shows.
+                </p>
+                <span class="card-link">Read more →</span>
+            </a>
+        </div>
+
+        <div class="pagination">
+            <button class="page-btn" id="prevBtn" disabled>← Previous</button>
+            <div class="page-indicator">
+                <span class="page-dot active" data-dot="0"></span>
+                <span class="page-dot" data-dot="1"></span>
+                <span class="page-dot" data-dot="2"></span>
+            </div>
+            <button class="page-btn" id="nextBtn">Next →</button>
+        </div>
+
+        <div class="footer">
+            <p>Sacred Syntax | Visual Theology Collection</p>
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 0;
+        const totalPages = 3;
+        const cards = document.querySelectorAll('.writing-card');
+        const dots = document.querySelectorAll('.page-dot');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function showPage(pageNum) {
+            // Hide all cards
+            cards.forEach(card => {
+                card.classList.add('hidden');
+            });
+
+            // Show current card
+            const currentCard = document.querySelector(`[data-page="${pageNum}"]`);
+            if (currentCard) {
+                currentCard.classList.remove('hidden');
+            }
+
+            // Update dots
+            dots.forEach(dot => {
+                dot.classList.remove('active');
+            });
+            const activeDot = document.querySelector(`[data-dot="${pageNum}"]`);
+            if (activeDot) {
+                activeDot.classList.add('active');
+            }
+
+            // Update buttons
+            prevBtn.disabled = pageNum === 0;
+            nextBtn.disabled = pageNum === totalPages - 1;
+
+            currentPage = pageNum;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentPage > 0) {
+                showPage(currentPage - 1);
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentPage < totalPages - 1) {
+                showPage(currentPage + 1);
+            }
+        });
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const pageNum = parseInt(dot.dataset.dot);
+                showPage(pageNum);
+            });
+            dot.style.cursor = 'pointer';
+        });
+
+        // Initialize
+        showPage(0);
+    </script>
+</body>
+</html>
