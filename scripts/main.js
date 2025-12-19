@@ -1,6 +1,6 @@
 import { writings } from "./data.js";
 
-const cards = document.querySelectorAll(".writing-card");
+const writingsGrid = document.querySelector(".writings-grid");
 const pageNumber = document.getElementById("pageNumber");
 const progressCircle = document.getElementById("progressCircle");
 const prevBtn = document.getElementById("prevBtn");
@@ -10,15 +10,44 @@ const searchResults = document.getElementById("searchResults");
 const pagination = document.querySelector(".pagination");
 const writingsCount = document.getElementById("writingsCount");
 
+let cards = [];
 let currentPage = 0;
 let isSearchActive = false;
 
 const radius = 20;
 const circumference = 2 * Math.PI * radius;
 
-progressCircle.style.strokeDasharray = circumference;
-progressCircle.style.strokeDashoffset = circumference;
-writingsCount.textContent = writings.length;
+function createCard(writing) {
+  const card = document.createElement("a");
+  card.className = "writing-card";
+  card.href = writing.href;
+  card.dataset.page = writing.page;
+  card.innerHTML = `
+    <div class="card-scripture">${writing.scripture}</div>
+    <h2 class="card-title">${writing.title}</h2>
+    <h3 class="card-subtitle">${writing.subtitle}</h3>
+    <div class="divider"></div>
+    <p class="card-excerpt">
+      ${writing.excerpt}
+    </p>
+    <span class="card-link">Read more →</span>
+  `;
+
+  return card;
+}
+
+function renderCards() {
+  writingsGrid.innerHTML = "";
+  writings.forEach((writing, index) => {
+    const card = createCard(writing);
+    if (index !== 0) {
+      card.classList.add("hidden");
+    }
+    writingsGrid.appendChild(card);
+  });
+
+  cards = Array.from(document.querySelectorAll(".writing-card"));
+}
 
 function showPage(pageNum) {
   if (isSearchActive) return;
@@ -86,6 +115,15 @@ function performSearch(query) {
   });
 }
 
+function initialize() {
+  progressCircle.style.strokeDasharray = circumference;
+  progressCircle.style.strokeDashoffset = circumference;
+  writingsCount.textContent = writings.length;
+
+  renderCards();
+  showPage(0);
+}
+
 searchInput.addEventListener("input", event => {
   performSearch(event.target.value);
 });
@@ -102,4 +140,4 @@ nextBtn.addEventListener("click", () => {
   }
 });
 
-showPage(0);
+initialize();
