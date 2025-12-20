@@ -101,5 +101,27 @@ export const writings = [
       "Jesus"
     ],
     href: "eternity-in-the-heart.html"
+  },
+
+    {
+    page: 5,
+    title: "slow is kingdom",
+    subtitle: "the unforced rhythms of grace",
+    scripture: "Matthew 11:28-30",
+    excerpt: "We live in a fast-paced world, yet the Lord invites us to come and partake in His pace. Grace has a rhythm. It doesn't rush, force, or strive. It restores. This is the kingdom way.",
+    keywords: [
+      "slow",
+      "grace",
+      "rhythm",
+      "pace",
+      "rest",
+      "transformation",
+      "kingdom",
+      "patience",
+      "intentional",
+      "deep roots",
+      "fruit of the Spirit"
+    ],
+    href: "slow-is-kingdom.html"
   }
 ];
