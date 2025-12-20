@@ -21,6 +21,7 @@ function createCard(writing) {
   const card = document.createElement("a");
   card.className = "writing-card";
   card.href = writing.href;
+  card.target = "_blank";
   card.dataset.page = writing.page;
   card.innerHTML = `
     <div class="card-scripture">${writing.scripture}</div>
