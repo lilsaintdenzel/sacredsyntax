@@ -143,6 +143,26 @@ export const writings = [
       "right standing"
     ],
     href: "righteousness-peace-joy.html"
-}
+},
+{
+    page: 7,
+    title: "purity of heart",
+    subtitle: "to will one thing",
+    scripture: "Matthew 5:8",
+    excerpt: "Purity of heart is the ability to will one thing. To desire God without division. The heart becomes what it beholds. What it repeatedly looks upon, it slowly loves. What it loves, it begins to resemble.",
+    keywords: [
+      "purity",
+      "undivided heart",
+      "beholding",
+      "transformation",
+      "desire",
+      "discipline",
+      "conformity to Christ",
+      "direction",
+      "gaze",
+      "refining fire"
+    ],
+    href: "purity-of-heart.html"
+}  
   
 ];
