@@ -204,6 +204,27 @@ export const writings = [
       "finish line"
     ],
     href: "the-christian-race.html"
-}
+}, 
   
+  {
+    page: 10,
+    title: "bezalel",
+    subtitle: "in His presence",
+    scripture: "Exodus 31:2-5",
+    excerpt: "Bezalel was filled with the Spirit of God not for preaching, but for creating. To be endowed with Spirit-sponsored creativity, you must abide in His presence. Ideas aren't manufactured—they're revealed in the secret place.",
+    keywords: [
+      "creativity",
+      "Spirit-filled",
+      "anointing",
+      "craftsmanship",
+      "artistry",
+      "abiding",
+      "presence",
+      "vision",
+      "execution",
+      "Tabernacle",
+      "worship"
+    ],
+    href: "bezalel.html"
+}
 ];
