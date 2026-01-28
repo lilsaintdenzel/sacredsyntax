@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,7 +50,7 @@
             z-index: 1;
         }
 
-                .back-home {
+        .back-home {
           position: fixed;
           top: 30px;
           left: 30px;
@@ -75,15 +73,12 @@
           transition: all 0.3s ease;
         }
 
-.back-home a:hover {
-  background: rgba(26, 26, 26, 0.8);
-  color: #c9b9a0;
-  border-color: #1a1a1a;
-  transform: translateX(-3px);
-}
-
-
-        
+        .back-home a:hover {
+          background: rgba(26, 26, 26, 0.8);
+          color: #c9b9a0;
+          border-color: #1a1a1a;
+          transform: translateX(-3px);
+        }
 
         .container {
             max-width: 900px;
@@ -137,6 +132,40 @@
             color: #fff8dc;
         }
 
+        .video-section {
+            opacity: 0;
+            animation: fadeIn 1.5s ease forwards 1.4s;
+            margin: 40px 0;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+            border-radius: 8px;
+            border: 2px solid rgba(255, 215, 0, 0.2);
+            margin: 20px 0;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .video-caption {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #ffd700;
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+
         .content {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -149,8 +178,8 @@
             animation: slideUp 1s ease forwards;
         }
 
-        .section:nth-child(1) { animation-delay: 1.4s; }
-        .section:nth-child(2) { animation-delay: 1.7s; }
+        .section:nth-child(1) { animation-delay: 1.7s; }
+        .section:nth-child(2) { animation-delay: 2.0s; }
 
         .section-title {
             font-size: 1.3rem;
@@ -175,8 +204,8 @@
             animation-delay: inherit;
         }
 
-        .section:nth-child(1) .section-title::after { animation-delay: 1.9s; }
-        .section:nth-child(2) .section-title::after { animation-delay: 2.2s; }
+        .section:nth-child(1) .section-title::after { animation-delay: 2.2s; }
+        .section:nth-child(2) .section-title::after { animation-delay: 2.5s; }
 
         .section p {
             line-height: 1.6;
@@ -202,7 +231,7 @@
             background: #ffd700;
             transform: scaleX(0);
             animation: underline 0.8s ease forwards;
-            animation-delay: 2.5s;
+            animation-delay: 2.8s;
         }
 
         .emphasis {
@@ -225,7 +254,7 @@
             background: #ffd700;
             margin: 2px auto;
             opacity: 0;
-            animation: fadeIn 1s ease forwards 2.8s;
+            animation: fadeIn 1s ease forwards 3.1s;
         }
 
         .closing {
@@ -324,10 +353,9 @@
     <div class="grain"></div>
 
     <div class="back-home">
-  <a href="index.html">← Back</a>
-</div>
+        <a href="index.html">← Back</a>
+    </div>
 
-    
     <div class="container">
         <div class="scripture-ref">Isaiah 62:3</div>
         <div class="title">crown of splendor:</div>
@@ -336,6 +364,19 @@
         <div class="verse">
             "You will be a crown of splendor in the LORD's hand,<br>
             a royal diadem in the hand of your God."
+        </div>
+
+        <div class="video-section">
+            <div class="video-container">
+                <iframe 
+                    src="https://www.youtube.com/embed/b9bDwGUGAmk?si=K2ICHkAVp4U9HWX0" 
+                    title="Royal Diadem - Eight28 Records" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <p class="video-caption">Listen: "Royal Diadem" by Eight28 Records</p>
         </div>
 
         <div class="content">
@@ -372,10 +413,10 @@
                 <p>You are already his crown. Already his royal diadem. Already held in his hand. The work is ongoing, yes. The refining continues. But your identity is settled. You belong to the King. You are treasured by the King. You are displayed by the King as a reflection of his own glory.</p>
                 <p>This is the gospel in miniature. God takes what the world rejects and makes it glorious. He takes what seems worthless and declares it priceless. He takes the broken and calls it beautiful. Not because of what we are in ourselves, but because of what we are in his hand. Held. Treasured. Transformed.</p>
             </div>
-
         </div>
     </div>
 </body>
 </html>
+
 
 
