@@ -50,36 +50,35 @@
             z-index: 1;
         }
 
-          .back-home {
-  position: fixed;
-  top: 30px;
-  left: 30px;
-  z-index: 10;
-  opacity: 0;
-  animation: fadeIn 1s ease forwards 0.5s;
-}
+        .back-home {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            z-index: 10;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 0.5s;
+        }
 
-.back-home a {
-  display: inline-block;
-  padding: 12px 24px;
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(26, 26, 26, 0.4);
-  border-radius: 6px;
-  color: #1a1a1a;
-  text-decoration: none;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: all 0.3s ease;
-}
+        .back-home a {
+            display: inline-block;
+            padding: 12px 24px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(26, 26, 26, 0.4);
+            border-radius: 6px;
+            color: #1a1a1a;
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
 
-.back-home a:hover {
-  background: rgba(26, 26, 26, 0.8);
-  color: #c9b9a0;
-  border-color: #1a1a1a;
-  transform: translateX(-3px);
-}
-
+        .back-home a:hover {
+            background: rgba(26, 26, 26, 0.8);
+            color: #c9b9a0;
+            border-color: #1a1a1a;
+            transform: translateX(-3px);
+        }
 
         .container {
             max-width: 900px;
@@ -209,7 +208,7 @@
             background: #1a1a1a;
             margin: 20px auto;
             opacity: 0;
-            animation: fadeIn 1s ease forwards 2s;
+            animation: fadeIn 1s ease forwards 3s;
         }
 
         .closing {
@@ -221,6 +220,41 @@
 
         .closing p {
             margin-bottom: 15px;
+        }
+
+        .video-container {
+            grid-column: 1 / -1;
+            margin-top: 20px;
+            opacity: 0;
+            animation: fadeIn 1.5s ease forwards 3.5s;
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border: 2px solid rgba(26, 26, 26, 0.3);
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .video-subtext {
+            grid-column: 1 / -1;
+            text-align: center;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            opacity: 0;
+            animation: fadeIn 1.5s ease forwards 3.2s;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 6px;
         }
 
         @keyframes fadeInDown {
@@ -310,8 +344,8 @@
     <div class="grain"></div>
 
     <div class="back-home">
-  <a href="index.html">← Back</a>
-</div>
+        <a href="index.html">← Back</a>
+    </div>
 
     
     <div class="container">
@@ -334,6 +368,20 @@
                 <p>Because Gethsemane is where obedience was chosen in the face of unbearable cost. Where love proved stronger than fear. Where the Son of God wrestled with what it meant to be fully human and fully divine.</p>
                 <p>We often skip this part. We go straight from Palm Sunday to Good Friday, from triumph to execution. But Gethsemane is where the real battle was fought. In prayer. In submission. In the crushing weight of what was to come. The King who would wear a crown of thorns instead of a royal diadem.</p>
                 <p>The oil press. The place where everything inside is brought to the surface. Where there's nowhere to hide. Where the truth of what you're made of is revealed under pressure.</p>
+            </div>
+
+            <div class="vertical-line-divider"></div>
+
+            <div class="video-subtext">
+                Listen: "Gethsemane" by Eight28 Records
+            </div>
+
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/_dbdee4UbGQ?list=RD_dbdee4UbGQ" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                </iframe>
             </div>
 
             <div class="emphasis">
