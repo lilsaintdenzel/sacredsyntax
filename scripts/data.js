@@ -163,6 +163,26 @@ export const writings = [
       "refining fire"
     ],
     href: "purity-of-heart.html"
+},
+
+  {
+    page: 8,
+    title: "the hounds",
+    subtitle: "relentless pursuit",
+    scripture: "1 Peter 5:8",
+    excerpt: "A hound is a hunting dog trained to track a scent relentlessly. Spiritually, hounds represent three forces that pursue the heart away from God: Desire, the World, and the Enemy.",
+    keywords: [
+      "temptation",
+      "spiritual warfare",
+      "desire",
+      "the world",
+      "the enemy",
+      "pursuit",
+      "defense",
+      "shepherd",
+      "three enemies",
+      "vigilance"
+    ],
+    href: "the-hounds.html"
 }  
-  
 ];
