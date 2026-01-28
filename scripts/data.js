@@ -184,5 +184,26 @@ export const writings = [
       "vigilance"
     ],
     href: "the-hounds.html"
-}  
+} ,
+{
+    page: 9,
+    title: "the christian race",
+    subtitle: "anchored on endurance",
+    scripture: "Hebrews 12:1-2",
+    excerpt: "The Christian life is not a sprint but a marathon—a race that demands not explosive speed but sustaining power. Endurance is not passive waiting but active perseverance under pressure.",
+    keywords: [
+      "endurance",
+      "hypomone",
+      "perseverance",
+      "race",
+      "marathon",
+      "anchor",
+      "steadfastness",
+      "completion",
+      "spiritual stamina",
+      "finish line"
+    ],
+    href: "the-christian-race.html"
+}
+  
 ];
