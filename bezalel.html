@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bezalel: a visual theology</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #1a1410;
+            font-family: 'Courier New', monospace;
+            color: #b8a890;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(184,168,144,.03) 2px, rgba(184,168,144,.03) 4px),
+                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(184,168,144,.03) 2px, rgba(184,168,144,.03) 4px);
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='3' numOctaves='3' /%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: transparent;
+            padding: 60px 40px;
+            border-radius: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .title {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 10px;
+            opacity: 0;
+            animation: fadeInDown 1.5s ease forwards;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            color: #d4c0a8;
+        }
+
+        .subtitle {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeInDown 1.5s ease forwards 0.3s;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            color: #d4c0a8;
+        }
+
+        .tagline {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 60px;
+            opacity: 0;
+            animation: fadeIn 1.5s ease forwards 0.6s;
+            color: #e0d4c0;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .section {
+            opacity: 0;
+            animation: slideUp 1s ease forwards;
+        }
+
+        .section:nth-child(1) { animation-delay: 1s; }
+        .section:nth-child(2) { animation-delay: 1.2s; }
+        .section:nth-child(3) { animation-delay: 1.4s; }
+        .section:nth-child(4) { animation-delay: 1.6s; }
+        .section:nth-child(5) { animation-delay: 1.8s; }
+        .section:nth-child(6) { animation-delay: 2s; }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #e0d4c0;
+        }
+
+        .section p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            color: #d4c8b8;
+        }
+
+        .section ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+            color: #d4c8b8;
+        }
+
+        .section li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            font-weight: bold;
+            position: relative;
+            display: inline-block;
+            color: #e0d4c0;
+        }
+
+        .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #b8a890;
+            transform: scaleX(0);
+            animation: underline 0.8s ease forwards;
+            animation-delay: 2s;
+        }
+
+        .divider {
+            width: 60px;
+            height: 2px;
+            background: #b8a890;
+            margin: 30px 0;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        .section:nth-child(1) .divider { animation-delay: 1.5s; }
+        .section:nth-child(2) .divider { animation-delay: 1.7s; }
+        .section:nth-child(3) .divider { animation-delay: 1.9s; }
+        .section:nth-child(4) .divider { animation-delay: 2.1s; }
+        .section:nth-child(5) .divider { animation-delay: 2.3s; }
+
+        .emphasis {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 40px 0 20px;
+            line-height: 1.2;
+            text-align: center;
+            opacity: 0;
+            animation: scaleIn 1s ease forwards 2.5s;
+            color: #e0d4c0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes underline {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.25;
+            z-index: 3;
+            mix-blend-mode: overlay;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='4' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .back-home {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            z-index: 10;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 0.5s;
+        }
+
+        .back-home a {
+            display: inline-block;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(184, 168, 144, 0.4);
+            border-radius: 6px;
+            color: #b8a890;
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .back-home a:hover {
+            background: rgba(184, 168, 144, 0.2);
+            color: #e0d4c0;
+            border-color: #b8a890;
+            transform: translateX(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .title { font-size: 2.5rem; }
+            .subtitle { font-size: 2rem; }
+            .container { padding: 40px 25px; }
+            .emphasis { font-size: 1.4rem; }
+            .back-home { top: 15px; left: 15px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="grain"></div>
+    <div class="back-home">
+        <a href="index.html">← Back</a>
+    </div>
+
+    <div class="container">
+        <div class="title">bezalel:</div>
+        <div class="subtitle">in His presence.</div>
+        <div class="tagline">"In the shadow of God" - Spirit-sponsored creativity.</div>
+
+        <div class="content">
+            <div class="section">
+                <div class="section-title">The Calling of Bezalel</div>
+                <p><em>"See, I have called by name Bezalel the son of Uri, son of Hur, of the tribe of Judah, and I have filled him with the Spirit of God, with ability and intelligence, with knowledge and all craftsmanship, to devise artistic designs, to work in gold, silver, and bronze, in cutting stones for setting, and in carving wood, to work in every craft."</em> — Exodus 31:2-5</p>
+                <p>The name <span class="highlight">Bezalel</span> means "in the shadow of God" or "under God's protection." From the very beginning, his identity was tied to dwelling in God's presence. His name was prophetic—he would create under the shadow of the Almighty, covered by divine presence.</p>
+                <p>Bezalel is the first person in Scripture explicitly said to be filled with the Spirit of God—not for preaching, not for prophecy, but for <span class="highlight">creating</span>. His anointing was artistic. His calling was to make beauty for the dwelling place of God.</p>
+                <p>This reveals something profound: <span class="highlight">creativity is spiritual work</span>. To make is to reflect the Maker. To design is to bear the image of the Designer.</p>
+                <div class="divider"></div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Spirit-Sponsored Creativity</div>
+                <p><span class="highlight">To be endowed with Spirit-sponsored creativity, you must abide in His presence.</span></p>
+                <p>Bezalel's skill didn't come from natural talent alone—it came from being filled with God's Spirit. His creativity was <span class="highlight">anointed</span>. His craftsmanship was <span class="highlight">consecrated</span>.</p>
+                <p>True creativity flows from communion. The closer you are to the Source, the clearer the vision becomes. Ideas aren't manufactured—they're received. Designs aren't invented—they're <span class="highlight">revealed</span> in the secret place.</p>
+                <p>Moses went up the mountain and saw the pattern. Bezalel stayed in the tent and built according to the pattern. Both required presence. Both required listening.</p>
+                <div class="divider"></div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Cultivating the Creative Anointing</div>
+                <p>Spirit-sponsored creativity must be <span class="highlight">cultivated</span>. It's not a one-time impartation but a daily practice of abiding.</p>
+                <p><em>"Abide in me, and I in you. As the branch cannot bear fruit by itself, unless it abides in the vine, neither can you, unless you abide in me."</em> — John 15:4</p>
+                <p>The creative anointing requires:</p>
+                <p><strong>1. Presence over Productivity</strong><br>
+                You cannot create from an empty well. Bezalel had to remain in God's presence to sustain the vision. Creativity without communion becomes mere performance.</p>
+                <p><strong>2. Spirit-Led Vision</strong><br>
+                Bezalel knew <strong>what</strong> to create—not by guessing, but by divine instruction. The Spirit gives clarity. He shows you what needs to be made, what needs to be said, what needs to be designed.</p>
+                <p><strong>3. Wisdom in Execution</strong><br>
+                But knowing what to create isn't enough. Bezalel also knew <strong>how</strong> to create. The Spirit gave him "ability and intelligence, with knowledge and all craftsmanship." Technique matters. Skill matters. Strategy matters.</p>
+                <p>God doesn't just give you the vision—He equips you with the wisdom to execute it.</p>
+                <div class="divider"></div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">The All-Encompassing Nature</div>
+                <p>Notice the scope of Bezalel's anointing:</p>
+                <ul>
+                    <li><strong>Ability</strong> — natural skill enhanced by supernatural grace</li>
+                    <li><strong>Intelligence</strong> — understanding principles and methods</li>
+                    <li><strong>Knowledge</strong> — accumulated wisdom and expertise</li>
+                    <li><strong>Craftsmanship</strong> — mastery through practice</li>
+                </ul>
+                <p>Spirit-sponsored creativity is <span class="highlight">holistic</span>. It involves:</p>
+                <ul>
+                    <li>The what (vision)</li>
+                    <li>The how (technique)</li>
+                    <li>The why (purpose)</li>
+                    <li>The when (timing)</li>
+                    <li>The with what (resources)</li>
+                </ul>
+                <p>Every aspect of the creative process can be led by the Spirit—from the initial spark of inspiration to the final execution. God cares about excellence. He cares about beauty. He cares about the details.</p>
+                <div class="divider"></div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Creating for His Dwelling</div>
+                <p>Bezalel wasn't creating for himself. He was building the Tabernacle—<span class="highlight">the place where God would dwell among His people</span>. His creativity served a holy purpose.</p>
+                <p>This is the key: Spirit-sponsored creativity is never just about self-expression. It's about <span class="highlight">making space for God's presence</span>. It's about creating things that point people to the Father. It's about using your gifts to build something eternal.</p>
+                <p><em>"Whatever you do, work heartily, as for the Lord and not for men, knowing that from the Lord you will receive the inheritance as your reward. You are serving the Lord Christ."</em> — Colossians 3:23-24</p>
+                <div class="divider"></div>
+            </div>
+
+            <div class="emphasis">
+                CREATIVITY FLOWS<br>
+                FROM ABIDING IN HIM
+            </div>
+
+            <div class="section">
+                <div class="section-title">The New Covenant Filling</div>
+                <p>What was unique to Bezalel in the Old Covenant is now available to every believer in the New. <span class="highlight">We are all filled with the Spirit</span>. We all have access to divine creativity.</p>
+                <p>The question is: are you abiding? Are you cultivating? Are you listening for the what and the how?</p>
+                <p>God has called you by name. He has work prepared for you to do—creative work, redemptive work, kingdom-building work. And He will fill you with His Spirit to accomplish it.</p>
+                <p>Stay in His presence. Learn to hear His voice. Develop the skill. Execute with excellence.</p>
+                <p><span class="highlight">Spirit-sponsored creativity flows from abiding in Him.</span></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
